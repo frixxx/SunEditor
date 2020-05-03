@@ -70,7 +70,7 @@ export default {
         /** add event listeners */
         image_dialog.querySelector('.se-dialog-tabs').addEventListener('click', this.openTab.bind(core));
         image_dialog.querySelector('.se-btn-primary').addEventListener('click', this.submit.bind(core));
-        image_dialog.querySelector('.se-dialog-files-remove').addEventListener('click', this._removeSelectedFiles.bind(core, contextImage.imgInputFile, contextImage.imgUrlFile));
+        // image_dialog.querySelector('.se-dialog-files-remove').addEventListener('click', this._removeSelectedFiles.bind(core, contextImage.imgInputFile, contextImage.imgUrlFile));
         if (contextImage.imgInputFile && contextImage.imgUrlFile) contextImage.imgInputFile.addEventListener('change', this._fileInputChange.bind(contextImage));
         
         contextImage.proportion = {};
@@ -124,16 +124,20 @@ export default {
                 '<div class="_se_tab_content _se_tab_content_image">' +
                     '<div class="se-dialog-body"><div style="border-bottom: 1px dashed #ccc;">';
 
-            if (option.imageFileInput) {
-                html += '' +
-                        '<div class="se-dialog-form">' +
-                            '<label>' + lang.dialogBox.imageBox.file + '</label>' +
-                            '<div class="se-dialog-form-files">' +
-                                '<input class="se-input-form _se_image_file" type="file" accept="image/*" multiple="multiple" />' +
-                                '<button type="button" data-command="filesRemove" class="se-btn se-dialog-files-remove" title="' + lang.controller.remove + '">' + this.icons.cancel + '</button>' +
-                            '</div>' +
-                        '</div>' ;
+            // Hier bild auswahl einbauen
+            html += '<div class="se-dialog-form">';
+            html += '  <label>' + lang.dialogBox.imageBox.list + '</label>';
+            html += '  <div class="se-dialog-imagelist">';
+            if(option.imageList) {
+              const imageList = option.imageList ? option.imageList : [];
+              for (let i = 0; i < imageList.length; i++) {
+                html += '  <div class="se-dialog-imagelist-image-box" onclick="javascript:document.getElementsByClassName(\'se-input-form se-input-url\')[0].value = \'/img/' + imageList[i].filename + '\';">';
+                html += '    <img src="/img/' + imageList[i].filename + '" class="se-dialog-imagelist-image" />';
+                html += '  </div>';
+              }
             }
+            html += '  </div>';
+            html += '</div>';
 
             if (option.imageUrlInput) {
                 html += '' +
