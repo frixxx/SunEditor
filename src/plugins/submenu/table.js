@@ -189,7 +189,9 @@ export default {
     },
 
     appendTable: function () {
+        const option = this.context.option;
         const oTable = this.util.createElement('TABLE');
+        oTable.classList = option.tableStyles && option.tableStyles.table ? option.tableStyles.table : 'table';
         const createCells = this.plugins.table.createCells;
 
         const x = this.context.table._tableXY[0];
@@ -1052,6 +1054,7 @@ export default {
     },
 
     toggleHeader: function () {
+        const option = this.context.option;
         const util = this.util;
         const headerButton = this.context.table.headerButton;
         const active = util.hasClass(headerButton, 'active');
@@ -1059,6 +1062,7 @@ export default {
 
         if (!active) {
             const header = util.createElement('THEAD');
+            header.classList = option.tableStyles && option.tableStyles.header ? option.tableStyles.header : '';
             header.innerHTML = '<tr>' + this.plugins.table.createCells.call(this, 'th', this.context.table._logical_cellCnt, false) + '</tr>';
             table.insertBefore(header, table.firstElementChild);
         } else {
