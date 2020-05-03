@@ -91,6 +91,7 @@
                 title: 'Insert image',
                 file: 'Select from files',
                 url: 'Image URL',
+                list: 'Image Selection',
                 altText: 'Alternative text'
             },
             videoBox: {
